@@ -1,26 +1,37 @@
+<!-- src/App.vue -->
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>Password Manager</h1>
+    <AddPassword @password-added="fetchPasswords" />
+    <PasswordList ref="passwordList" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AddPassword from './components/AddPassword.vue';
+import PasswordList from './components/PasswordList.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
-</script>
+    AddPassword,
+    PasswordList
+  },
+  methods: {
+    fetchPasswords() {
+      this.$refs.passwordList.fetchPasswords();
+    },
+    generatePassword() {
+    const length = 16;
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+[]{}|;:,.<>?/';
+    let password = '';
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+
+    this.newPassword.password = password;
+  },
+},
+};
+</script>
