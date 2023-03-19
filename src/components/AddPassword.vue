@@ -1,24 +1,92 @@
 <!-- src/components/AddPassword.vue -->
 <template>
-    <div>
-      <h2>Add Password</h2>
-      <form @submit.prevent="addPassword">
-        <input v-model="title" placeholder="Title" required />
-        <input v-model="username" placeholder="Username" required />
-        <input v-model="password" placeholder="Password" required />
-        <button @click.prevent="generatePassword">Generate Password</button>
-        <select v-model="category">
-        <option disabled value="">Choose a category</option>
-        <option>Personal</option>
-        <option>Work</option>
-        <option>Finance</option>
-        <option>Social</option>
-      </select>
-        <button type="submit">Save</button>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Add Password
+        </h2>
+      </div>
+      <form @submit.prevent="addPassword" class="mt-8 space-y-6">
+        <input type="hidden" name="remember" value="true" />
+        <div class="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label for="title" class="sr-only">Title</label>
+            <input
+              v-model="title"
+              id="title"
+              name="title"
+              type="text"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Title"
+            />
+          </div>
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input
+              v-model="username"
+              id="username"
+              name="username"
+              type="text"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Username"
+            />
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <input
+              v-model="password"
+              id="password"
+              name="password"
+              type="text"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <button
+              @click.prevent="generatePassword"
+              type="button"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Generate Password
+            </button>
+          </div>
+          <div>
+            <select
+              v-model="category"
+              class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            >
+              <option disabled value="">Choose a category</option>
+              <option>Personal</option>
+              <option>Work</option>
+              <option>Finance</option>
+              <option>Social</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Save
+          </button>
+        </div>
       </form>
     </div>
-  </template>
-  
+  </div>
+</template>
+Das ist das aktual
+
+
+
+
   <script>
   import axios from 'axios';
   

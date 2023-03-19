@@ -58,7 +58,29 @@ def passwords():
         db.session.commit()
 
         return jsonify({"message": "Password added", "id": new_password.id})
+        
+@app.route('/api/passwords/<int:password_id>', methods=['PUT', 'DELETE'])
+def password_detail(password_id):
+    password = Password.query.get_or_404(password_id)
 
+    if request.method == 'PUT':
+        title = request.json['title']
+        username = request.json['username']
+        encrypted_password = cipher_suite.encrypt(request.json['password'].encode('utf-8')).decode('utf-8')
+        category = request.json['category']
+
+        password.title = title
+        password.username = username
+        password.password = encrypted_password
+        password.category = category
+
+        db.session.commit()
+        return jsonify({"message": "Password updated", "id": password.id})
+
+    elif request.method == 'DELETE':
+        db.session.delete(password)
+        db.session.commit()
+        return jsonify({"message": "Password deleted", "id": password.id})
 
 
 if __name__ == '__main__':
