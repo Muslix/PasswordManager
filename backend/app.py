@@ -41,7 +41,7 @@ def passwords():
         for p in passwords:
             try:
                 decrypted_password = cipher_suite.decrypt(p.password.encode('utf-8')).decode('utf-8')
-                decrypted_passwords.append({"id": p.id, "title": p.title, "username": p.username, "password": decrypted_password})
+                decrypted_passwords.append({"id": p.id, "title": p.title, "username": p.username, "password": decrypted_password, "category": p.category})
             except Exception as e:
                 print(f"Error decrypting password: {e}")
 
