@@ -24,18 +24,21 @@ jobs:
         source env/bin/activate
         pip install -r requirements.txt
 
-
+    - name: Set PYTHONPATH
+      run: |
+        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
     - name: Setup environment variables
       run: |
-        echo "FERNET_KEY=$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
-        echo "FLASK_APP=main.py" >> $GITHUB_ENV
-        echo "FLASK_ENV=development" >> $GITHUB_ENV
+        echo "FERNET_KEY=${{ secrets.FERNET_KEY }}" >> $GITHUB_ENV
+        echo "FLASK_APP=${{ secrets.FLASK_APP }}" >> $GITHUB_ENV
+        echo "FLASK_ENV=${{ secrets.FLASK_ENV }}" >> $GITHUB_ENV
 
     - name: Create database
       run: |
+        source env/bin/activate
         flask db upgrade
-        
+
     - name: Run tests
       run: env/bin/pytest backend/tests/
 
