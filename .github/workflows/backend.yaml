@@ -33,7 +33,7 @@ jobs:
     - name: Setup environment variables
       run: |
         echo "FERNET_KEY=$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
-        echo "FLASK_APP=main.py" >> $GITHUB_ENV
+        echo "FLASK_APP=app.py" >> $GITHUB_ENV
         echo "FLASK_ENV=development" >> $GITHUB_ENV
 
     - name: Debug environment
