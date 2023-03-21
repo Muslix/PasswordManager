@@ -28,12 +28,12 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+        echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
 
     - name: Setup environment variables
       run: |
         echo "FERNET_KEY=$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
-        echo "FLASK_APP=app.py" >> $GITHUB_ENV
+        echo "FLASK_APP=backend/app.py" >> $GITHUB_ENV
         echo "FLASK_ENV=development" >> $GITHUB_ENV
 
     - name: Debug environment
