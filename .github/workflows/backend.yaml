@@ -34,7 +34,8 @@ jobs:
       run: |
         echo "FERNET_KEY=$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
         echo "FLASK_APP=backend/app.py" >> $GITHUB_ENV
-        echo "FLASK_ENV=development" >> $GITHUB_ENV
+        echo "FLASK_DEBUG=1" >> $GITHUB_ENV
+
 
     - name: Debug environment
       run: |
@@ -52,6 +53,7 @@ jobs:
         export FERNET_KEY=${{ env.FERNET_KEY }}
         export FLASK_APP=${{ env.FLASK_APP }}
         export FLASK_ENV=${{ env.FLASK_ENV }}
+        flask db init
         flask db upgrade
 
     - name: Run tests
