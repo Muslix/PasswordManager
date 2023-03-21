@@ -34,7 +34,7 @@ jobs:
         echo "FLASK_APP=main.py" >> $GITHUB_ENV
         echo "FLASK_ENV=development" >> $GITHUB_ENV
 
-  - name: Create database
+    - name: Create database
       run: |
         source env/bin/activate
         export FERNET_KEY=${{ env.FERNET_KEY }}
