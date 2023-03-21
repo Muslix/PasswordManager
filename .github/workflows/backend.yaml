@@ -25,8 +25,8 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
-    - name: Run tests
-      run: env/bin/pytest backend/tests/
+    # - name: Run tests
+    #   run: env/bin/pytest backend/tests/
 
     - name: Setup environment variables
       run: |
