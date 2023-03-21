@@ -34,6 +34,16 @@ jobs:
         echo "FLASK_APP=main.py" >> $GITHUB_ENV
         echo "FLASK_ENV=development" >> $GITHUB_ENV
 
+    - name: Debug environment
+      run: |
+        env
+        echo $PATH
+        echo $VIRTUAL_ENV
+        ls -la env/bin
+        source env/bin/activate
+        which flask
+        which python
+        
     - name: Create database
       run: |
         source env/bin/activate
