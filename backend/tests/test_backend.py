@@ -2,7 +2,7 @@ from backend.app import app, db
 from backend.models import Password, PasswordHistory, save_password_history
 from backend.encryption import encrypt_password, decrypt_password
 
-def test_password_creation():
+def test_password_creation(db):
     """Test creating a new password."""
     with app.app_context():
         # Create a new password
@@ -13,7 +13,7 @@ def test_password_creation():
         # Check if the new password was added successfully
         assert Password.query.filter_by(title='Email').first() is not None
 
-def test_password_update():
+def test_password_update(db):
     """Test updating an existing password."""
     with app.app_context():
         # Update an existing password
@@ -24,7 +24,7 @@ def test_password_update():
         # Check if the password was updated successfully
         assert Password.query.filter_by(title='Email', username='bob@example.com').first() is not None
 
-def test_password_deletion():
+def test_password_deletion(db):
     """Test deleting an existing password."""
     with app.app_context():
         # Delete an existing password
@@ -35,7 +35,7 @@ def test_password_deletion():
         # Check if the password was deleted successfully
         assert Password.query.filter_by(title='Email').first() is None
 
-def test_password_history():
+def test_password_history(db):
     """Test saving a password history entry."""
     with app.app_context():
         # Add a new password history entry
