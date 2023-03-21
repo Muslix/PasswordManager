@@ -1,6 +1,6 @@
-from app import app, db
-from models import Password, PasswordHistory, save_password_history
-from encryption import encrypt_password, decrypt_password
+from ..app import app, db
+from ..models import Password, PasswordHistory, save_password_history
+from ..encryption import encrypt_password, decrypt_password
 
 def test_password_creation():
     """Test creating a new password."""
