@@ -34,10 +34,13 @@ jobs:
         echo "FLASK_APP=main.py" >> $GITHUB_ENV
         echo "FLASK_ENV=development" >> $GITHUB_ENV
 
-    - name: Create database
+  - name: Create database
       run: |
         source env/bin/activate
-        flask db upgrade
+        export FERNET_KEY=${{ env.FERNET_KEY }}
+        export FLASK_APP=${{ env.FLASK_APP }}
+        export FLASK_ENV=${{ env.FLASK_ENV }}
+        env/bin/flask db upgrade
 
     - name: Run tests
       run: env/bin/pytest backend/tests/
