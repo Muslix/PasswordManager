@@ -70,8 +70,8 @@ python create_db.py
 1. Starten Sie den Flask-Server im Hauptverzeichnis der Anwendung:
 
 ```
-export FLASK_APP=app.py # Für Linux/macOS
-set FLASK_APP=app.py # Für Windows
+export FLASK_APP=main.py # Für Linux/macOS
+set FLASK_APP=main.py # Für Windows
 flask run
 ```
 
