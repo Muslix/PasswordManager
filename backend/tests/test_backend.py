@@ -1,6 +1,6 @@
-from password_manager.backend.app import app, db
-from password_manager.backend.models import Password, PasswordHistory, save_password_history
-from password_manager.backend.encryption import encrypt_password, decrypt_password
+from backend.app import app, db
+from backend.models import Password, PasswordHistory, save_password_history
+from backend.encryption import encrypt_password, decrypt_password
 
 def test_password_creation():
     """Test creating a new password."""
