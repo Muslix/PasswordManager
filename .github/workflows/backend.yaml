@@ -24,7 +24,7 @@ jobs:
         pip install pytest
 
     - name: Run tests
-      run: pytest tests/
+      run: pytest backend/tests/
 
     - name: Setup environment variables
       run: |
@@ -38,4 +38,4 @@ jobs:
 
     - name: Insert test data
       run: |
-        python test_data.py
+        python backend/test_data.py
