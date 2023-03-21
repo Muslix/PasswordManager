@@ -75,27 +75,33 @@ import axios from 'axios';
 import zxcvbn from "zxcvbn";
 
 export default {
+  props: ['category'], 
   data() {
     return {
       passwords: []
     };
   },
   async mounted() {
-    await this.fetchPasswords();
+      await this.fetchPasswords();
   },
   methods: {
-      async fetchPasswords() {
+    async fetchPasswords() {
       const response = await axios.get('http://localhost:5000/api/passwords');
-      this.passwords = response.data.map((password) => {
-          password.showPassword = false;
-          password.editing = false;
-          password.editedUsername = password.username;
-          password.editedPassword = password.password;
-          password.editedCategory = password.category;
-          return password;
+      let passwords = response.data.map((password) => {
+        password.showPassword = false;
+        password.editing = false;
+        password.editedUsername = password.username;
+        password.editedPassword = password.password;
+        password.editedCategory = password.category;
+        return password;
       });
-      },
-      
+
+      if (this.category) {
+        passwords = passwords.filter((password) => password.category === this.category);
+      }
+      this.passwords = passwords;
+    },
+
       async updatePassword(password) {
         const updated_password = {
           title: password.title,
@@ -152,8 +158,11 @@ export default {
     },
 
     watch: {
-      async 'password-added'() {
-        await this.fetchPasswords();
+      category: {
+        async handler() {
+          await this.fetchPasswords();
+        },
+        immediate: true,
       },
     },
     

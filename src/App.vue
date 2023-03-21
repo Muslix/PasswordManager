@@ -1,25 +1,23 @@
 <!-- src/App.vue -->
 <template>
   <div id="app">
-    <h1>Password Manager</h1>
-    <AddPassword @password-added="fetchPasswords" />
-    <PasswordList ref="passwordList" />
+    <Navbar />
+    <router-view @password-added="fetchPasswords" />
   </div>
 </template>
 
 <script>
-import AddPassword from './components/AddPassword.vue';
-import PasswordList from './components/PasswordList.vue';
+
+import Navbar from './components/Navbar.vue';
 
 export default {
   components: {
-    AddPassword,
-    PasswordList
+    Navbar
   },
   methods: {
     fetchPasswords() {
       this.$refs.passwordList.fetchPasswords();
     },
-},
+  },
 };
 </script>
