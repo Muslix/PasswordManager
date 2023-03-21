@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: '3.9'
 
-   - name: Install dependencies
+    - name: Install dependencies
       run: |
         python -m venv env
         source env/bin/activate
