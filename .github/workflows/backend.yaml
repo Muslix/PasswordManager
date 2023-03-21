@@ -24,7 +24,7 @@ jobs:
         pip install pytest
 
     - name: Run tests
-      run: pytest backend/tests/
+      run: --rootdir=password_manager/backend backend/tests/
 
     - name: Setup environment variables
       run: |
