@@ -2,6 +2,8 @@ from app import db
 from datetime import datetime
 
 class Password(db.Model):
+    __tablename__ = 'password'
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), nullable=False)
@@ -9,6 +11,8 @@ class Password(db.Model):
     category = db.Column(db.String(100), nullable=False, default='Personal')
 
 class PasswordHistory(db.Model):
+    __tablename__ = 'password_history'
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=True)
     password_id = db.Column(db.Integer, nullable=False)
