@@ -19,6 +19,11 @@
     async created() {
       this.category = this.$route.params.category;
     },
+    watch: {
+      $route() {
+        this.fetchPasswords();
+      },
+    },
   };
   </script>
   

@@ -84,6 +84,15 @@ npm run serve
 
 3. Öffnen Sie Ihren Webbrowser und navigieren Sie zu `http://localhost:8080`, um die Anwendung zu verwenden.
 
+
+## Geplante Funktionen / To-Do-Liste
+
+1. Master-Passwort: Einführung eines Master-Passworts, um den Zugriff auf den Passwort-Manager zu sichern und den Benutzern die Kontrolle über ihre gespeicherten Passwörter zu geben.
+
+2. Browsererweiterung: Entwicklung einer Browsererweiterung, die es Benutzern ermöglicht, ihre Passwörter direkt im Browser abzurufen und automatisch in Webformulare einzufügen.
+
+3. Benutzerdefinierte Kategorien und Tags: Einführung der Möglichkeit, Passwörter mit benutzerdefinierten Kategorien und Tags zu organisieren, um eine bessere Übersicht über die gespeicherten Informationen zu erhalten.
+
 ## Lizenz
 
 Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen finden Sie in der [LICENSE](LICENSE) Datei.

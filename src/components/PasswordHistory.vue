@@ -4,7 +4,7 @@
       <table class="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Password ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">TITLE</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Username</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Password</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
@@ -13,7 +13,7 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <tr v-for="entry in history" :key="entry.id">
-            <td class="px-6 py-4 whitespace-nowrap">{{ entry.password_id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ entry.title }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ entry.username }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ entry.password }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ entry.category }}</td>

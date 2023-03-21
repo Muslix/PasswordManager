@@ -37,7 +37,7 @@ def password_detail(password_id):
         encrypted_password = encrypt_password(request.json['password'])
         category = request.json['category']
 
-        save_password_history(password.id, password.username, password.password, password.category)
+        save_password_history(password.id, password.title, password.username, password.password, password.category)
 
         password.title = title
         password.username = username
@@ -48,7 +48,7 @@ def password_detail(password_id):
         return jsonify({"message": "Password updated", "id": password.id})
 
     elif request.method == 'DELETE':
-        save_password_history(password.id, password.username, password.password, password.category)
+        save_password_history(password.id, password.title, password.username, password.password, password.category)
         db.session.delete(password)
         db.session.commit()
         return jsonify({"message": "Password deleted", "id": password.id})
@@ -62,6 +62,7 @@ def password_history():
         if decrypted_password:
             decrypted_history.append({
                 "id": entry.id,
+                "title": entry.title,
                 "password_id": entry.password_id,
                 "username": entry.username,
                 "password": decrypted_password,
@@ -70,3 +71,4 @@ def password_history():
             })
 
     return jsonify(decrypted_history)
+    

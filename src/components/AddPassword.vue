@@ -70,6 +70,13 @@
             </select>
           </div>
         </div>
+        <div
+          v-if="showSnackbar"
+          class="fixed bottom-0 right-0 mb-8 mr-8 p-4 bg-green-500 text-white rounded shadow-lg transition-all duration-500 z-50"
+          role="alert"
+        >
+          Password added successfully!
+        </div>
         <div>
           <button
             type="submit"
@@ -96,7 +103,8 @@ Das ist das aktual
         title: '',
         username: '',
         password: '',
-        category: ''
+        category: '',
+        showSnackbar: false
       };
     },
     methods: {
@@ -108,7 +116,13 @@ Das ist das aktual
           category: this.category
         };
         await axios.post('http://localhost:5000/api/passwords', new_password);
-        this.$emit('password-added');
+        this.$router.push('/');
+
+        this.showSnackbar = true;
+
+        setTimeout(() => {
+          this.showSnackbar = false;
+        }, 3000);
       },
       generatePassword() {
         const length = 16;
