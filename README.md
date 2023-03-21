@@ -37,10 +37,9 @@ pip install -r requirements.txt
 ```
 
 
-4. Navigieren Sie zum Frontend-Verzeichnis und installieren Sie die erforderlichen JavaScript-Pakete:
+4. Navigieren Sie zum Frontend(Haupt)-Verzeichnis und installieren Sie die erforderlichen JavaScript-Pakete:
 
 ```
-cd frontend
 npm install
 ```
 
@@ -76,10 +75,9 @@ flask run
 ```
 
 
-2. Starten Sie den Vue.js-Server im Frontend-Verzeichnis:
+2. Starten Sie den Vue.js-Server im Frontend(Haupt)-Verzeichnis:
 
 ```
-cd frontend
 npm run serve
 ```
 
