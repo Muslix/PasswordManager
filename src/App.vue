@@ -1,8 +1,10 @@
 <!-- src/App.vue -->
 <template>
-  <div id="app">
+  <div id="app" class="flex flex-col min-h-screen bg-gray-50">
     <Navbar />
-    <router-view @password-added="fetchPasswords" />
+    <div class="flex-grow">
+      <router-view @password-added="fetchPasswords" />
+    </div>
   </div>
 </template>
 

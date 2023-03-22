@@ -1,6 +1,7 @@
 from app import db
 from datetime import datetime
 
+
 class Password(db.Model):
     __tablename__ = 'password'
     __table_args__ = {'extend_existing': True}
