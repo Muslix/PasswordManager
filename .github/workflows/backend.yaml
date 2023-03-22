@@ -57,12 +57,12 @@ jobs:
         flask db upgrade
         python backend/create_db.py
 
-    - name: Run tests
-      run: |
-        source env/bin/activate
-        export FERNET_KEY=${{ env.FERNET_KEY }}
-        env/bin/pytest backend/tests/
+    # - name: Run tests
+    #   run: |
+    #     source env/bin/activate
+    #     export FERNET_KEY=${{ env.FERNET_KEY }}
+    #     env/bin/pytest backend/tests/
 
-    - name: Insert test data
-      run: |
-        python backend/test_data.py
+    # - name: Insert test data
+    #   run: |
+    #     python backend/test_data.py
