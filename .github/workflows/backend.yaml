@@ -55,6 +55,7 @@ jobs:
         export FLASK_ENV=${{ env.FLASK_ENV }}
         flask db init
         flask db upgrade
+        python create_db.py
 
     - name: Run tests
       run: |
