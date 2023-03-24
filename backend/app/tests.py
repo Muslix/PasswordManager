@@ -1,8 +1,9 @@
 import unittest
 import json
 import os
-from app import create_app
-from database import db
+from backend.app import create_app
+from backend.app.database import db
+
 
 class PasswordManagerTestCase(unittest.TestCase):
     def setUp(self):
