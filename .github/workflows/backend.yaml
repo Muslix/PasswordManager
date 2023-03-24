@@ -61,8 +61,8 @@ jobs:
       run: |
         source env/bin/activate
         export PYTHONPATH=$PWD
-        python -m unittest tests.py
-
+        python -m unittest backend/app/tests.py
+        
     # - name: Run tests
     #   run: |
     #     source env/bin/activate
