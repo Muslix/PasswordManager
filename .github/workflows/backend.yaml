@@ -57,6 +57,11 @@ jobs:
         flask db upgrade
         python backend/app/create_db.py
 
+    - name: Run tests
+      run: |
+        source env/bin/activate
+        python -m unittest tests.py
+
     # - name: Run tests
     #   run: |
     #     source env/bin/activate
