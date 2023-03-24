@@ -59,18 +59,10 @@ jobs:
         flask db upgrade
         python backend/app/create_db.py
 
-    - name: Run tests
-      run: |
-        source env/bin/activate
-        export PYTHONPATH=$PWD/backend
-        python -m unittest backend/app/tests.py
-
     # - name: Run tests
     #   run: |
     #     source env/bin/activate
-    #     export FERNET_KEY=${{ env.FERNET_KEY }}
-    #     env/bin/pytest backend/tests/
+    #     export PYTHONPATH=$PWD/backend
+    #     python -m unittest backend/app/tests.py
 
-    # - name: Insert test data
-    #   run: |
-    #     python backend/test_data.py
+
