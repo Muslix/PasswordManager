@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_migrate import Migrate
 
-from .database import db
+from database import db
 from blueprints import api_blueprint
 
 def create_app(base_dir):
