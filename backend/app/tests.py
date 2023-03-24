@@ -2,7 +2,7 @@ import unittest
 import json
 import os
 from .app import create_app
-from database import db
+from .database import db
 
 class PasswordManagerTestCase(unittest.TestCase):
     def setUp(self):
