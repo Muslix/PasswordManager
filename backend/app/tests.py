@@ -1,11 +1,12 @@
 import unittest
 import json
+import os
 from app import create_app
 from database import db
 
 class PasswordManagerTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app(os.path.abspath(os.path.dirname(__file__)) + "/..")
         self.client = self.app.test_client
         self.app_context = self.app.app_context()
         self.app_context.push()
