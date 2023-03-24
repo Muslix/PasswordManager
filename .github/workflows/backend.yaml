@@ -22,7 +22,7 @@ jobs:
         python -m venv env
         source env/bin/activate
         pip install --upgrade pip
-        pip install -r backend/requirements.txt
+        pip install -r backend/app/requirements.txt
         pip install Flask
         which flask
 
@@ -33,7 +33,7 @@ jobs:
     - name: Setup environment variables
       run: |
         echo "FERNET_KEY=$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
-        echo "FLASK_APP=backend/app.py" >> $GITHUB_ENV
+        echo "FLASK_APP=backend/app/main.py" >> $GITHUB_ENV
         echo "FLASK_DEBUG=1" >> $GITHUB_ENV
 
 
@@ -55,7 +55,7 @@ jobs:
         export FLASK_ENV=${{ env.FLASK_ENV }}
         flask db init
         flask db upgrade
-        python backend/create_db.py
+        python backend/app/create_db.py
 
     # - name: Run tests
     #   run: |
