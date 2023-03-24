@@ -28,7 +28,7 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
+        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
     - name: Setup environment variables
       run: |
