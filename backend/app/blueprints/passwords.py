@@ -1,9 +1,11 @@
 from flask import request, jsonify
-from app import app, db
-from models import Password, PasswordHistory, save_password_history
-from encryption import encrypt_password, decrypt_password
+from models import Password, PasswordHistory
+from encryption import decrypt_password
+from services.password_service import add_password, update_password, delete_password
+from . import api_blueprint
 
-@app.route('/api/passwords', methods=['GET', 'POST'])
+
+@api_blueprint.route('/passwords', methods=['GET', 'POST'])
 def passwords():
     if request.method == 'GET':
         passwords = Password.query.all()
@@ -18,42 +20,30 @@ def passwords():
     elif request.method == 'POST':
         title = request.json['title']
         username = request.json['username']
-        encrypted_password = encrypt_password(request.json['password'])
+        password = request.json['password']
         category = request.json['category']
 
-        new_password = Password(title=title, username=username, password=encrypted_password, category=category)
-        db.session.add(new_password)
-        db.session.commit()
-
+        new_password = add_password(title, username, password, category)
         return jsonify({"message": "Password added", "id": new_password.id})
 
-@app.route('/api/passwords/<int:password_id>', methods=['PUT', 'DELETE'])
+@api_blueprint.route('/passwords/<int:password_id>', methods=['PUT', 'DELETE'])
 def password_detail(password_id):
     password = Password.query.get_or_404(password_id)
 
     if request.method == 'PUT':
         title = request.json['title']
         username = request.json['username']
-        encrypted_password = encrypt_password(request.json['password'])
+        new_password = request.json['password']
         category = request.json['category']
 
-        save_password_history(password.id, password.title, password.username, password.password, password.category)
-
-        password.title = title
-        password.username = username
-        password.password = encrypted_password
-        password.category = category
-
-        db.session.commit()
+        update_password(password, title, username, new_password, category)
         return jsonify({"message": "Password updated", "id": password.id})
 
     elif request.method == 'DELETE':
-        save_password_history(password.id, password.title, password.username, password.password, password.category)
-        db.session.delete(password)
-        db.session.commit()
+        delete_password(password)
         return jsonify({"message": "Password deleted", "id": password.id})
 
-@app.route('/api/passwords/history', methods=['GET'])
+@api_blueprint.route('/passwords/history', methods=['GET'])
 def password_history():
     history_entries = PasswordHistory.query.all()
     decrypted_history = []
@@ -71,18 +61,3 @@ def password_history():
             })
 
     return jsonify(decrypted_history)
-    
-@app.route('/api/categories', methods=['POST'])
-def add_category():
-    category_name = request.json.get('name')
-    category = Category(name=category_name)
-    db.session.add(category)
-    db.session.commit()
-    return jsonify({'message': 'Category added successfully'}), 201
-
-@app.route('/api/categories/<int:category_id>', methods=['DELETE'])
-def remove_category(category_id):
-    category = Category.query.get_or_404(category_id)
-    db.session.delete(category)
-    db.session.commit()
-    return jsonify({'message': 'Category removed successfully'}), 200
