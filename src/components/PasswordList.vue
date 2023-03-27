@@ -7,15 +7,14 @@
         <div class="space-y-2">
           <div v-if="!password.editing" class="flex items-center">
             <span class="font-semibold">Category:</span>
-            <span class="ml-2">{{ password.category }}</span>
+            <span class="ml-2">{{ password.category.name }}</span>
           </div>
           <div v-else class="flex items-center">
             <span class="font-semibold">Category:</span>
             <select v-model="password.editedCategory" class="ml-2 border border-gray-300 rounded p-1">
-              <option value="Social">Social</option>
-              <option value="Work">Work</option>
-              <option value="Personal">Personal</option>
-              <option value="Others">Others</option>
+              <option v-for="category in categories" :key="category.id" :value="category.id">
+                {{ category.name }}
+              </option>
             </select>
           </div>
           <div v-if="!password.editing" class="flex items-center">
@@ -75,45 +74,53 @@ import axios from 'axios';
 import zxcvbn from "zxcvbn";
 
 export default {
-  props: ['category'], 
+  props: ['selectedCategory', 'filteredPasswords'], 
   data() {
     return {
-      passwords: []
+      passwords: [],
+      categories: [],
     };
   },
   async mounted() {
       await this.fetchPasswords();
+      await this.fetchCategories();
   },
   methods: {
-    async fetchPasswords() {
-      const response = await axios.get('http://localhost:5000/api/passwords');
-      let passwords = response.data.map((password) => {
-        password.showPassword = false;
-        password.editing = false;
-        password.editedUsername = password.username;
-        password.editedPassword = password.password;
-        password.editedCategory = password.category;
-        return password;
-      });
+      async fetchPasswords() {
+        const response = await axios.get('http://localhost:5000/api/passwords?include=category');
+        let passwords = response.data.map((password) => {
+          password.showPassword = false;
+          password.editing = false;
+          password.editedUsername = password.username;
+          password.editedPassword = password.password;
+          password.editedCategory = password.category;
+          return password;
+        });
 
-      if (this.category) {
-        passwords = passwords.filter((password) => password.category === this.category);
-      }
-      this.passwords = passwords;
-    },
+        if (this.filteredPasswords && this.selectedCategory) {
+          passwords = passwords.filter((password) => password.category.id === parseInt(this.selectedCategory));
+        }
+        this.passwords = passwords;
+      },
+
+      
+      async fetchCategories() {
+        const response = await axios.get("http://localhost:5000/api/categories");
+        this.categories = response.data;
+      },
 
       async updatePassword(password) {
         const updated_password = {
           title: password.title,
           username: password.editedUsername,
           password: password.editedPassword,
-          category: password.editedCategory
+          category_id: password.editedCategory
         };
 
         await axios.put(`http://localhost:5000/api/passwords/${password.id}`, updated_password);
         password.username = password.editedUsername;
         password.password = password.editedPassword;
-        password.category = password.editedCategory;
+        password.category = this.categories.find(category => category.id === password.editedCategory);
         password.editing = false;
       },
 
@@ -153,6 +160,7 @@ export default {
         }
       },
       editPassword(password) {
+        password.editedCategory = password.category ? password.category.id : null;
         password.editing = true;
       },
     },

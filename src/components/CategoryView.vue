@@ -1,29 +1,30 @@
 <template>
-    <div>
-      <PasswordList :category="category" />
-    </div>
-  </template>
+  <div>
+    <password-list :selectedCategory="selectedCategory" :filteredPasswords="true"></password-list>
+  </div>
+</template>
+
+<script>
+import PasswordList from '@/components/PasswordList.vue';
+
+export default {
+  components: {
+    PasswordList,
+  },
+  data() {
+    return {
+      selectedCategory: null,
+      passwords: [],
+    };
+  },
+  async created() {
+    this.selectedCategory = this.$route.params.category;
+  },
+  watch: {
+    $route() {
+      this.selectedCategory = this.$route.params.category;
+    },
+  }
   
-  <script>
-  import PasswordList from '@/components/PasswordList.vue';
-  
-  export default {
-    components: {
-      PasswordList
-    },
-    data() {
-      return {
-        category: null
-      };
-    },
-    async created() {
-      this.category = this.$route.params.category;
-    },
-    watch: {
-      $route() {
-        this.fetchPasswords();
-      },
-    },
-  };
-  </script>
-  
+};
+</script>

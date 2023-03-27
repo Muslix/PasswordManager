@@ -58,15 +58,10 @@
             </button>
           </div>
           <div>
-            <select
-              v-model="category"
-              class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            >
-              <option disabled value="">Choose a category</option>
-              <option>Personal</option>
-              <option>Work</option>
-              <option>Finance</option>
-              <option>Social</option>
+            <select v-model="category" class="ml-2 border border-gray-300 rounded p-1">
+              <option v-for="category in categories" :key="category.id" :value="category">
+                {{ category.name }}
+              </option>
             </select>
           </div>
         </div>
@@ -103,17 +98,28 @@ Das ist das aktual
         title: '',
         username: '',
         password: '',
-        category: '',
+        category: null,
+        categories: [],
         showSnackbar: false
       };
     },
+    // props: {
+    //   category: Object 
+    // },
+    async mounted() {
+      await this.fetchCategories();
+  },
     methods: {
+      async fetchCategories() {
+        const response = await axios.get("http://localhost:5000/api/categories");
+        this.categories = response.data;
+      },
       async addPassword() {
         const new_password = {
           title: this.title,
           username: this.username,
           password: this.password,
-          category: this.category
+          category_id: this.category.id
         };
         await axios.post('http://localhost:5000/api/passwords', new_password);
         this.$router.push('/');

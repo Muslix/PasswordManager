@@ -1,8 +1,9 @@
 from flask import request, jsonify
-from models import Password, PasswordHistory
+from models import Password, PasswordHistory, Category  
 from encryption import decrypt_password
 from services.password_service import add_password, update_password, delete_password
 from . import api_blueprint
+
 
 
 @api_blueprint.route('/passwords', methods=['GET', 'POST'])
@@ -13,7 +14,7 @@ def passwords():
         for p in passwords:
             decrypted_password = decrypt_password(p.password)
             if decrypted_password:
-                decrypted_passwords.append({"id": p.id, "title": p.title, "username": p.username, "password": decrypted_password, "category": p.category})
+                decrypted_passwords.append({"id": p.id, "title": p.title, "username": p.username, "password": decrypted_password, "category": p.category.to_dict() if p.category else None})
 
         return jsonify(decrypted_passwords)
 
@@ -21,9 +22,9 @@ def passwords():
         title = request.json['title']
         username = request.json['username']
         password = request.json['password']
-        category = request.json['category']
+        category_id  = request.json['category_id']
 
-        new_password = add_password(title, username, password, category)
+        new_password = add_password(title, username, password, category_id )
         return jsonify({"message": "Password added", "id": new_password.id})
 
 @api_blueprint.route('/passwords/<int:password_id>', methods=['PUT', 'DELETE'])
@@ -34,9 +35,9 @@ def password_detail(password_id):
         title = request.json['title']
         username = request.json['username']
         new_password = request.json['password']
-        category = request.json['category']
+        category_id  = request.json['category_id']
 
-        update_password(password, title, username, new_password, category)
+        update_password(password, title, username, new_password, category_id )
         return jsonify({"message": "Password updated", "id": password.id})
 
     elif request.method == 'DELETE':

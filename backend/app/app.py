@@ -20,4 +20,7 @@ def create_app(base_dir):
 
     app.register_blueprint(api_blueprint, url_prefix='/api')
 
+    from blueprints.categories import category_blueprint
+    app.register_blueprint(category_blueprint, url_prefix='/api')
+
     return app
