@@ -1,8 +1,8 @@
 <!-- src/App.vue -->
 <template>
-  <div id="app" class="flex flex-col min-h-screen bg-gray-50">
+  <div id="app" class="h-screen flex bg-gray-50">
     <Navbar />
-    <div class="flex-grow">
+    <div class="flex-grow overflow-y-auto">
       <router-view @password-added="fetchPasswords" />
     </div>
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 
-import Navbar from './components/Navbar.vue';
+import Navbar from './layouts/Navbar.vue';
 
 export default {
   components: {

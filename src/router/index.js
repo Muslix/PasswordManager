@@ -1,26 +1,26 @@
 // src/router/index.js
 
 import { createRouter, createWebHistory } from "vue-router";
-import AddPassword from "../components/AddPassword.vue";
-import PasswordList from "../components/PasswordList.vue";
-import Dashboard from "../components/Dashboard.vue";
-import CategoryView from "../components/CategoryView.vue"; 
-import PasswordHistory from "../components/PasswordHistory.vue"; 
+import AddPassword from "../views/AddPasswordView.vue";
+import PasswordList from "../views/PasswordListView.vue";
+import Dashboard from "../views/DashboardView.vue";
+import CategoryView from "../views/CategoryView.vue";
+import PasswordHistory from "../views/HistoryView.vue"; 
 
 const routes = [
-    { path: '/', component: Dashboard },
-    { path: '/list', component: PasswordList },
-    { path: '/add', component: AddPassword },
-    { path: '/category/:category', name: 'CategoryView', component: CategoryView }, 
-    { path: '/hist', component: PasswordHistory },
-    // Fügen Sie hier weitere Routen hinzu
-  ];
-  
+  { path: '/', component: Dashboard },
+  { path: '/list', component: PasswordList },
+  { path: '/add', component: AddPassword },
+  { path: "/categories", name: "Categories", component: CategoryView },
+  { path: '/category/:categoryId', name: 'CategoryView', component: CategoryView }, 
+  { path: '/category/:categoryId/passwords', name: 'CategoryPasswordList', component: PasswordList },
+  { path: '/hist', component: PasswordHistory },
+  // Add more routes here
+];
 
-  const router = createRouter({
-    history: createWebHistory(),
-    routes,
-  });
-  
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
 export default router;
